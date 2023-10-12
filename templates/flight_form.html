@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formularz zgłoszeniowy do lotu dronem</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Procedura Awaryjna - Formularz zgłoszeniowy do lotu dronem</h1>
+    <h2 id="info">W tym momencie awaryjna procedura zgłaszania lotów została odwołana.</h1>
+    <a href="https://checkin.pansa.pl/" id="info">Wszystkie loty należy zgłaszać na checkin.pansa.pl</a>
+    
+    <form method="POST" id="flightForm">
+        Imię i nazwisko pilota: <input type="text" name="imie_nazwisko"><br>
+        Numer telefonu: <input type="text" name="numer_telefonu"><br>
+        Współrzędne WGS-84: <input type="text" id="wspolrzedne" name="wspolrzedne"><br>
+        Wysokość lotu: <input type="text" name="wysokosc_lotu"><br>
+        Promień okręgu: <input type="text" name="promien_okregu"><br>
+        Deklarowany czas rozpoczęcia: <input type="text" name="czas_rozpoczecia"><br>
+        Deklarowany czas zakończenia: <input type="text" name="czas_zakonczenia"><br>
+        <input id="button" type="submit" value="Wygeneruj treść maila">
+    </form>
+
+
+    <script></script>
+    <script>
+        function updateCoordinates(lat, lon) {
+            document.getElementById('wspolrzedne').value = lat + ', ' + lon;
+        }
+
+        // Pobierz lokalizację GPS
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var lat = position.coords.latitude;
+                var lon = position.coords.longitude;
+
+                // Aktualizuj współrzędne
+                updateCoordinates(lat, lon);
+            });
+        } else {
+            alert("Twoja przeglądarka nie obsługuje geolokalizacji.");
+        }
+    </script>
+</body>
+</html>
